@@ -31,9 +31,16 @@ In the project directory, you can run:
 
 ### `npm run preview`
 
+
 Runs the app in the development mode.\
 - You should be able to visit the URL printed in the terminal:
+```
+> vite preview
 
+  ➜  Local:   <http://127.0.0.1:4173/>
+  ➜   Network: use --host to expose
+
+```
 ## Authors
 
 👤 **Author1**
