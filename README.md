@@ -3,7 +3,7 @@
 > Contacts Tracker is rich feature web app :
 - This Web app allows you to easily keep track of your social circle
 
-[Live Page]('')
+[Live Page](https://contacts-tracker.netlify.app/)
 ![img](./screenshot.png)
 # Built with
 
@@ -15,7 +15,7 @@
 
 ## Live Demo (available)
 
-Feel free to check the [Live Demo]( https://kinginthenorthcodez.netlify.app)
+Feel free to check the by click or copy and past in browser[Live Demo]( https://contacts-tracker.netlify.app/)
 
 # Getting Started with Create React App
 
