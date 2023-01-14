@@ -6,6 +6,7 @@ import {
   NavLink,
   useNavigation,
   useSubmit,
+  Link,
 } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getContacts, createContact } from '../contacts';
@@ -24,7 +25,12 @@ const Root = () => {
   return (
     <>
       <div id='sidebar'>
-        <h1>Contacts Tracker</h1>
+        <h1>
+          Contacts Tracker{' '}
+          <p style={{ paddingLeft: '15px' }}>
+            <Link to={'contact-info'}>Get in Touch</Link>
+          </p>
+        </h1>
         <div>
           <Form id='search-form' role='search'>
             <input

@@ -6,6 +6,7 @@ import Root from './routes/root';
 import ErrorPage from './error-page';
 import Contact from './routes/contact';
 import EditContact from './routes/edit';
+import Inquiry from './routes/inquiry';
 import Index from './routes';
 import { loader as rootLoader } from './routes/root';
 import { action as rootAction } from './routes/root';
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             path: 'contacts/:contactId/destroy',
             action: deleteContactAction,
             errorElement: <h1>Something went wrong!</h1>,
+          },
+          {
+            path: 'contact-info',
+            element: <Inquiry />,
           },
         ],
       },

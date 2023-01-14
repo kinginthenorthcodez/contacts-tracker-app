@@ -25,6 +25,15 @@ const EditContact = () => {
         />
       </p>
       <label>
+        <span>Email</span>
+        <input
+          type='email'
+          name='email'
+          placeholder='yours@gmail.com'
+          defaultValue={contact.email}
+        />
+      </label>
+      <label>
         <span>Twitter</span>
         <input
           type='text'
