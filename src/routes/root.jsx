@@ -5,6 +5,7 @@ import {
   redirect,
   NavLink,
   useNavigation,
+  useSubmit,
 } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getContacts, createContact } from '../contacts';
@@ -12,6 +13,10 @@ import { getContacts, createContact } from '../contacts';
 const Root = () => {
   const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
+  const submit = useSubmit();
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has('q');
 
   useEffect(() => {
     document.getElementById('q').value = q;
@@ -29,8 +34,13 @@ const Root = () => {
               type='search'
               placeholder='search'
               defaultValue={q}
+              onChange={(event) => {
+                const isFirstSearch = q == null;
+                submit(event.currentTarget.form, { replace: !isFirstSearch });
+              }}
+              className={searching ? 'loading' : ''}
             />
-            <div id='search-spinner' aria-hidden hidden={true} />
+            <div id='search-spinner' aria-hidden hidden={!searching} />
             <div className='sr-only' aria-live='polite'></div>
           </Form>
           <Form method='POST'>
