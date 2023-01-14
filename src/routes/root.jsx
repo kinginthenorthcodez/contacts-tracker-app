@@ -1,4 +1,16 @@
+import {
+  Outlet,
+  useLoaderData,
+  Form,
+  redirect,
+  NavLink,
+  useNavigation,
+} from 'react-router-dom';
+import { getContacts, createContact } from '../contacts';
+
 const Root = () => {
+  const { contacts } = useLoaderData();
+  const navigation = useNavigation();
   return (
     <>
       <div id='sidebar'>
@@ -17,24 +29,57 @@ const Root = () => {
               Heyy
             </div>
           </form>
-          <form method='POST'>
+          <Form method='POST'>
             <button type='submit'>New</button>
-          </form>
+          </Form>
         </div>
         <nav>
-          <ul>
-            <li>
-              <a href={'/contacts/1'}>You name</a>
-            </li>
-            <li>
-              <a href={'/contacts/2'}>You Friend</a>
-            </li>
-          </ul>
+          {contacts.length ? (
+            <ul>
+              {contacts.map((contact) => (
+                <li key={contact.id}>
+                  <NavLink
+                    to={`contacts/${contact.id}`}
+                    className={({ isActive, isPending }) =>
+                      isActive ? 'active' : isPending ? 'pending' : ''
+                    }
+                  >
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
+                    ) : (
+                      <>
+                        <i>No Name</i>
+                      </>
+                    )}{' '}
+                    {contact.favorite && <span>★</span>}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
         </nav>
       </div>
-      <div id='details'></div>
+      <div
+        id='detail'
+        className={navigation.state === 'loading' ? 'loading' : ''}
+      >
+        <Outlet />
+      </div>
     </>
   );
 };
-
+export async function action() {
+  const contact = await createContact();
+  return redirect(`/contacts/${contact.id}/edit`);
+}
+export async function loader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
 export default Root;

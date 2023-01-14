@@ -1,14 +1,16 @@
-import { Form } from 'react-router-dom';
+import { Form, useLoaderData } from 'react-router-dom';
+import { getContact } from '../contacts';
 
 const Contact = () => {
-  const contact = {
-    first: 'Your',
-    last: 'name',
-    avatar: 'https://placekitten.com/g/200/200',
-    twitter: 'your_handle',
-    note: 'Something here',
-    favorite: true,
-  };
+  const { contact } = useLoaderData();
+  // const contact = {
+  //   first: 'Your',
+  //   last: 'name',
+  //   avatar: 'https://placekitten.com/g/200/200',
+  //   twitter: 'your_handle',
+  //   note: 'Something here',
+  //   favorite: true,
+  // };
   return (
     <>
       <div id='contact'>
@@ -20,6 +22,7 @@ const Contact = () => {
             {contact.first || contact.last ? (
               <>
                 {contact.first}
+
                 {contact.last}
               </>
             ) : (
@@ -37,7 +40,7 @@ const Contact = () => {
               </a>
             </p>
           )}
-          {contact.note && <p>{contact.note}</p>}
+          {contact.notes && <p>{contact.notes}</p>}
 
           <div>
             <Form action='edit'>
@@ -61,7 +64,7 @@ const Contact = () => {
   );
 };
 
-const Favorite = () => {
+const Favorite = ({ favorite }) => {
   return (
     <Form method='POST'>
       <button
@@ -75,4 +78,8 @@ const Favorite = () => {
   );
 };
 
+export async function loader({ params }) {
+  const contact = await getContact(params.contactId);
+  return { contact };
+}
 export default Contact;
